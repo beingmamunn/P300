@@ -5,7 +5,7 @@ import Config from '../config/config';
 import state from '../store';
 import {download} from '../assets';
 import {downloadCanvasToImage, reader} from '../config/helpers';
-import {EditorTabs, FilterTabs, DecalTypes, DecalTypes} from '../config/constants';
+import {EditorTabs, FilterTabs, DecalTypes} from '../config/constants';
 import {fadeAnimation, slideAnimation} from '../config/motion';
 import { AIPicker, ColorPicker, CustomButton, FilePicker, Tab } from '../components';
 
@@ -33,7 +33,9 @@ const Customizer = () => {
             readFile={readFile}
           />
         case "aipicker" :
-          return <AIPicker/>
+          return <AIPicker
+            
+          />
       default: 
           return null;
     }
@@ -60,6 +62,14 @@ const Customizer = () => {
           state.isFullTexture = false;
           
     }
+    setActiveFilterTab((prevState) => {
+      return {
+        ...prevState,
+        [tabName]: !prevState[tabName]
+      }
+    })
+
+
   }
 
   const readFile = (type) => {
@@ -115,8 +125,8 @@ const Customizer = () => {
                 key={tab.name}
                 tab={tab}
                 isFilterTab
-                isActiveTab=""
-                handleClick={()=>{}}
+                isActiveTab={activeFilterTab[tab.name]}
+                handleClick={()=> handleActiveFilterTab(tab.name)}
               />
             ))}
 
